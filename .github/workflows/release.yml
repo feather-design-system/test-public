@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest 
     if: github.event_name == 'workflow_dispatch'
     steps:
+      - run: git config --global user.email "$CI_EMAIL"
+      - run: git config --global user.name "$CI_USER"
       - uses: actions/checkout@v2
         with:
           token: $ACTION_PAT
@@ -28,8 +30,6 @@ jobs:
             node_modules
             **/node_modules
           key: ${{ runner.os }}-${{ hashFiles('./package-lock.json') }}
-      - run: git config --global user.email "$CI_EMAIL"
-      - run: git config --global user.name "$CI_USER"
       - run: npm ci
 
       - name: NPM version
