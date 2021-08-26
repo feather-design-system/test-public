@@ -1,0 +1,28 @@
+{
+  "name": "@rikbrowning/test-package",
+  "version": "1.0.22",
+  "description": "a test package for testing",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//rikbrowning/test-package.git"
+  },
+  "author": "Rik Browning",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/rikbrowning/test-package/issues"
+  },
+  "homepage": "https://github.com/rikbrowning/test-package#readme",
+  "devDependencies": {
+    "husky": "^7.0.0"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "conventional-changelog-cli": "^2.1.1"
+  }
+}
