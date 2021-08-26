@@ -20,6 +20,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: $ACTION_PAT
       - uses: actions/cache@v2
         with:
           path: |
@@ -37,8 +39,6 @@ jobs:
       - name: NPM publish
         run: npm publish --access public
 
-      - name: Set git creds
-        run: git remote set-url --push origin https://jmillar-nanthealth:$ACTION_PAT@github.com/feather-design-system/test-public
       - name: Push Version Commit
         run: git push
       - name: Push Version Tag
