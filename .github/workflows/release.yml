@@ -13,12 +13,15 @@ env:
   CI_USER: ${{ secrets.CI_USER}}
   CI_EMAIL: ${{ secrets.CI_EMAIL }}
   VERSION: ${{ github.event.inputs.version }}
+  ACTION_PAT: ${{ secrets.ACTION_PAT }}
 jobs:
   release:
     runs-on: ubuntu-latest 
     if: github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: $ACTION_PAT
       - uses: actions/cache@v2
         with:
           path: |
