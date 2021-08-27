@@ -13,21 +13,12 @@ env:
   CI_USER: ${{ secrets.CI_USER}}
   CI_EMAIL: ${{ secrets.CI_EMAIL }}
   VERSION: ${{ github.event.inputs.version }}
-  ACTION_PAT: ${{ secrets.ACTION_PAT }}
 jobs:
   release:
     runs-on: ubuntu-latest 
     if: github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2
-        with:
-          token: $ACTION_PAT
-      - uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            **/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('./package-lock.json') }}
       - run: git config --global user.email "$CI_EMAIL"
       - run: git config --global user.name "$CI_USER"
       - run: npm ci
@@ -54,7 +45,7 @@ jobs:
         id: create_release
         uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: $GITHUB_TOKEN # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.event.inputs.version }}
           release_name: Release ${{ github.event.inputs.version }}
