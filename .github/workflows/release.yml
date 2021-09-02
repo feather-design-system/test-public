@@ -53,3 +53,19 @@ jobs:
             ${{ steps.get_release_notes.outputs.release_notes }}
           draft: false
           prerelease: false
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_TOKEN }}
+      
+      - name: Upload to Azure blob storage
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+              az storage blob upload-batch --account-name prsv -d '$web' -s ./web
+      
+      - name: Azure logout
+        run: |
+              az logout
